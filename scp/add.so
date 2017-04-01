@@ -1,0 +1,9 @@
+export d=${0:a:h}
+export l=${d:h}
+export t=${l:t}
+export scp=$d
+export json=$l/json
+export conf=~/.config/$t
+export conj=$conf/config.json
+export repj=$json/repo.json
+

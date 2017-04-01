@@ -1,0 +1,42 @@
+git-zsh-rebase(){
+	cm=first
+	dd=${0:a:h}
+	g=$dd/.git
+	if [ ! -d $g ];then
+		exit
+	else
+		url=`cat ${0:a:h}/.git/config|grep url|cut -d = -f 2|tr -d ' '`
+	fi
+	ttmp=${0:a:h:t}_rebase_tmp
+	tt=$dd/$ttmp
+	gg=${0:a:h:t}_rebase_tmp/.git
+	git clone $url $ttmp
+	cd $tt
+
+	case $OSTYPE in
+		darwin*) GIT_SEQUENCE_EDITOR="sed -i '' -e '2,\$d'" git rebase -i --root ;;
+		linux*) GIT_SEQUENCE_EDITOR="sed -ie '2,\$d'" git rebase -i --root ;;
+	esac
+
+	cd $dd
+	rm -rf $g
+	cp -rf $gg $dd
+	echo "rm $tt [y]"
+	read key
+	case $key in
+		y)rm -rf $tt;;
+	esac
+	git add .
+	git commit -m $cm
+	case $OSTYPE in
+		darwin*) GIT_SEQUENCE_EDITOR="sed -i '' -e '2 s/pick/fixup/g'" git rebase -i --root ;;
+		linux*) GIT_SEQUENCE_EDITOR="sed -ie '2 s/pick/fixup/g'" git rebase -i --root ;;
+	esac
+	
+	if ! git push -f origin master;then
+		git push origin HEAD:master
+	fi
+	git status
+	git --no-pager log --decorate=short --pretty=oneline -n10
+	
+}
