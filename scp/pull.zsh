@@ -43,6 +43,9 @@ for ((i=1; i<=$n; i++ )) do
 				git pull
 			fi
 		;;
+		h)
+			cat ${0:a}
+		;;
 		"")
 			if [ $i -eq 1 ] && git status > /dev/null 2>&1;then
 				git pull

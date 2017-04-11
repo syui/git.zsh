@@ -25,6 +25,9 @@ case $2 in
 			git-zsh-rebase
 		done
 	;;
+	h)
+		cat ${0:a}
+	;;
 	"")
 		if [ -d ./.git ];then
 			git-zsh-rebase
