@@ -2,6 +2,15 @@
 
 . $scp/rebase.so
 
+if [ "$2" = "y" ];then
+	if [ -d ./.git ];then
+		export TEMP_GIT_REBASE=y
+		git-zsh-rebase
+		unset TEMP_GIT_REBASE
+		exit
+	fi
+fi
+
 if [ -n "$2" ];then
 	rdir=`cat $conj| jq -r '.[]|select(.rebase)|.rebase'|head -n 1`
 	ll=`zsh -c "cd $rdir;ls -A"`

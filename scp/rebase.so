@@ -21,10 +21,19 @@ git-zsh-rebase(){
 	cd $dd
 	rm -rf $g
 	cp -rf $gg $dd
-	echo "rm $tt [y]"
-	read key
-	case $key in
-		y)rm -rf $tt;;
+	case $TEMP_GIT_REBASE in
+		y)
+			rm -rf $tt
+		;;
+		*)
+			echo "rm $tt [y]"
+			read key
+			if [ "$key" = "y" ];then
+				rm -rf $tt
+			else
+				exit
+			fi
+		;;
 	esac
 	git config user.email "$USER@users.noreply.github.com"
 	git add .
