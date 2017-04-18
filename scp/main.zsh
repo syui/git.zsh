@@ -17,6 +17,9 @@ case $1 in
 	pull|p)
 		$scp/pull.zsh $*
 	;;
+	up|upstream|u)
+		$scp/upstream.zsh $*
+	;;
 	help|[hH]|-[hH]|--[hH])
 		cat $scp/main.zsh
 	;;
