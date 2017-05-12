@@ -23,5 +23,8 @@ case $1 in
 	help|[hH]|-[hH]|--[hH])
 		cat $scp/main.zsh
 	;;
+	url)
+		$scp/user.zsh $*
+	;;
 esac
 
